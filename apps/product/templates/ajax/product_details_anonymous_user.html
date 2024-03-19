@@ -1,0 +1,22 @@
+{% for product_variant_id,item in cart_list.items %}
+    {% if forloop.counter <= 2 %}
+        <div class="product product-cart">
+            <div class="product-detail">
+                <a href="product-default.html" class="product-name">{{item.title}}</a>
+                <div class="price-box">
+                    <span class="product-quantity">{{item.quantity}}</span>
+                    <span class="" style="font-weight:700; font-size:15px;">BDT {{item.price}}</span>
+                </div>
+            </div>
+            <figure class="product-media">
+                <a href="product-default.html">
+                    <img src="{{item.image}}" alt="{{item.title}}" height="84"
+                        width="94" />
+                </a>
+            </figure>
+            <button class="btn btn-link btn-close" aria-label="button">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    {% endif %}
+{% endfor %}

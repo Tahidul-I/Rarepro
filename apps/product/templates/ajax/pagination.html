@@ -1,0 +1,15 @@
+<p class="showing-info mb-2 mb-sm-0"> 
+    {% if page_number %}
+        Showing<span>1 of {{number_of_pages}}</span>Pages
+    {% else %}
+        Showing<span>1 of {{number_of_pages}}</span>Pages
+    {% endif %}
+</p>
+<ul class="pagination">
+    {% for page in page_list %}
+        <li {% if page == 1 %} class="page-item pagination_box  active" {% else %} class="page-item pagination_box" {% endif %} >
+            <a href="#" class="page-link pagination_link" data-page="{{forloop.counter}}">{{page}}</a>
+        </li>
+    {% endfor %}
+
+</ul>

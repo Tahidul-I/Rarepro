@@ -1,0 +1,23 @@
+
+    {% for cart_item in user_cart %}
+        {% if forloop.counter <= 2 %}
+            <div class="product product-cart">
+                <div class="product-detail">
+                    <a href="product-default.html" class="product-name">{{cart_item.title}}</a>
+                    <div class="price-box">
+                        <span class="product-quantity">{{cart_item.quantity}}</span>
+                        <span class="" style="font-weight:700; font-size:15px;">BDT {{cart_item.price|floatformat:0|cut:'.'}}</span>
+                    </div>
+                </div>
+                <figure class="product-media">
+                    <a href="product-default.html">
+                        <img src="{{cart_item.product_variant.product.image.url}}" alt="{{cart_item.title}}" height="84"
+                            width="94" />
+                    </a>
+                </figure>
+                {% comment %} <button class="btn btn-link btn-close delete-icon" aria-label="button">
+                    <i class="fas fa-times"></i>
+                </button> {% endcomment %}
+            </div>
+        {% endif %}
+    {% endfor %}

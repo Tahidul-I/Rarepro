@@ -1,0 +1,47 @@
+
+                              
+                                    {% for cart_item in user_cart %}
+                                            <tr class="text-center table-row-{{cart_item.product_variant.id}}">
+                                                <td class="product-thumbnail">
+                                                    <div class="p-relative">
+                                                        <a href="{% url 'product_details' cart_item.product_variant.slug %}">
+                                                            <figure>
+                                                                <img src="{{cart_item.product_variant.product.image.url}}" alt="product"
+                                                                    width="300" height="338">
+                                                            </figure>
+                                                        </a>
+                                                        <button type="button" class="btn btn-close delete-icon" id="{{cart_item.product_variant.id}}"><i
+                                                                class="fas fa-times"></i></button>
+                                                    </div>
+                                                </td>
+                                                <td class="product-name">
+                                                    <a href="{% url 'product_details' cart_item.product_variant.slug %}">
+                                                        {{cart_item.title}}
+                                                    </a>
+                                                </td>
+                                                <td ><span class="amount">{{cart_item.color}}</span></td>
+                                                <td ><span class="amount">{{cart_item.size}}</span></td>
+                                                <td ><span class="amount" id="item-price-value">BDT {{cart_item.price|floatformat:0|cut:'.'}}</span></td>
+                                                <td class="product-quantity" >
+                                                    <div class="input-group">
+                                                        <input class="form-control cart-{{cart_item.product_variant.id}} cart-quantity-for-update" type="number" value="{{cart_item.quantity}}" data-quantity="{{cart_item.product_variant.id}}">
+                                                        <button class="w-icon-plus updated-cart-value-increase" data-plus="{{cart_item.product_variant.id}}"></button>
+                                                        <button class="w-icon-minus updated-cart-value-dicrease" data-minus="{{cart_item.product_variant.id}}"></button>
+                                                    </div>
+                                                </td>
+                                                <td class="product-subtotal">
+                                                    <span class="amount">BDT {% widthratio cart_item.price 1 cart_item.quantity|floatformat:0|cut:'.' %}</span>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr class="hide-button">
+                                            <td colspan="7" style="text-align:center;font-size:25px;font-weight:700;">
+                                                <span>Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="ls-50 " id="updated-total-amount">BDT &nbsp;{{total_amount|floatformat:0|cut:'.'}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-center" style="display:none;" id="cart_empty_message"> 
+                                            <td colspan="7" ><h1>There Is No Item In Your Cart</h1></td>
+    
+                                        </tr>
+                                   
+                                    

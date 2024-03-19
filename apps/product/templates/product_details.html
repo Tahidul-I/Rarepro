@@ -1,0 +1,672 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+        <!-- Start of Main -->
+        <main class="main mb-10 pb-1">
+            {% comment %} <!-- Start of Breadcrumb -->
+            <nav class="breadcrumb-nav container">
+                <ul class="breadcrumb bb-no">
+                    <li><a href="demo1.html">Home</a></li>
+                    <li>Products</li>
+                </ul>
+                <ul class="product-nav list-style-none">
+                    <li class="product-nav-prev">
+                        <a href="#">
+                            <i class="w-icon-angle-left"></i>
+                        </a>
+                        <span class="product-nav-popup">
+                            <img src="assets/images/products/product-nav-prev.jpg" alt="Product" width="110"
+                                height="110" />
+                            <span class="product-name">Soft Sound Maker</span>
+                        </span>
+                    </li>
+                    <li class="product-nav-next">
+                        <a href="#">
+                            <i class="w-icon-angle-right"></i>
+                        </a>
+                        <span class="product-nav-popup">
+                            <img src="assets/images/products/product-nav-next.jpg" alt="Product" width="110"
+                                height="110" />
+                            <span class="product-name">Fabulous Sound Speaker</span>
+                        </span>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End of Breadcrumb --> {% endcomment %}
+
+            <!-- Start of Page Content -->
+            <div class="page-content" style="margin-top:10px;">
+                <div class="container">
+                    <div class="row gutter-lg">
+                        <div class="main-content">
+                            <div class="product product-single row">
+                                <div class="col-md-6 mb-4 mb-md-8">
+                                    <div class="product-gallery product-gallery-sticky">
+                                        <div class="swiper-container product-single-swiper swiper-theme nav-inner" data-swiper-options="{
+                                            'navigation': {
+                                                'nextEl': '.swiper-button-next',
+                                                'prevEl': '.swiper-button-prev'
+                                            }
+                                        }">
+                                            <div class="swiper-wrapper row cols-1 gutter-no">
+                                                {% for product_image in product_images %}
+                                                    <div class="swiper-slide">
+                                                        <figure>
+                                                            <img src="{{product_image.image.url}}" class="product-main-image"
+                                                                data-zoom-image="{{product_image.image.url}}"
+                                                                alt="{{product_image.product.title}}" width="800" height="900">
+                                                        </figure>
+                                                    </div>
+                                                {% endfor %}
+                                                
+                                            </div>
+                                            <button class="swiper-button-next"></button>
+                                            <button class="swiper-button-prev"></button>
+                                            <a href="#" class="product-gallery-btn product-image-full"><i class="w-icon-zoom"></i></a>
+                                        </div>
+                                        <div class="product-thumbs-wrap swiper-container" data-swiper-options="{
+                                            'navigation': {
+                                                'nextEl': '.swiper-button-next',
+                                                'prevEl': '.swiper-button-prev'
+                                            }
+                                        }">
+                                            <div class="product-thumbs swiper-wrapper row cols-4 gutter-sm">
+                                                {% for product_image in product_images %}
+                                                <div class="product-thumb swiper-slide">
+                                                    <img src="{{product_image.image.url}}"
+                                                        alt="Product Thumb" width="800" height="900">
+                                                </div>
+                                                {% endfor %}
+                                                {% comment %} <div class="product-thumb swiper-slide">
+                                                    <img src="assets/images/products/variable/2-800x900.jpg"
+                                                        alt="Product Thumb" width="800" height="900">
+                                                </div>
+                                                <div class="product-thumb swiper-slide">
+                                                    <img src="assets/images/products/variable/3-800x900.jpg"
+                                                        alt="Product Thumb" width="800" height="900">
+                                                </div>
+                                                <div class="product-thumb swiper-slide">
+                                                    <img src="assets/images/products/variable/4-800x900.jpg"
+                                                        alt="Product Thumb" width="800" height="900">
+                                                </div> {% endcomment %}
+                                            </div>
+                                            <button class="swiper-button-next"></button>
+                                            <button class="swiper-button-prev"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-6 mb-md-8">
+                                    <div class="product-details" data-sticky-options="{'minWidth': 767}">
+                                        <h1 class="product-title">{{product.title}}</h1>
+                                        <div class="product-bm-wrapper">
+                                           <a href="{% url 'brand_store' product.brand.slug %}">
+                                            <figure class="brand">
+                                                <img src="{{product.brand.logo.url}}" alt="Brand"
+                                                    width="105" height="48" />
+                                            </figure>
+                                           </a>
+                                            <div class="product-meta">
+                                                <div class="product-categories">
+                                                    Category:
+                                                    <span class="product-category"><a href="#">{{product.sub_sub_category.sub_category.category.title}}</a></span>
+                                                </div>
+                                                <div class="product-sku">
+                                                    SKU: <span>{{product.code}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr class="product-divider">
+
+                                        <div class="product-price product-price-bdt"  id = "product_price_field">
+                                            {% comment %} <ins class="new-price"></ins> {% endcomment %}
+                                        </div>
+
+                                        {% comment %} <div class="ratings-container">
+                                            <div class="ratings-full">
+                                                <span class="ratings" style="width: 80%;"></span>
+                                                <span class="tooltiptext tooltip-top"></span>
+                                            </div>
+                                            <a href="#product-tab-reviews" class="rating-reviews">(3 Reviews)</a>
+                                        </div> {% endcomment %}
+
+                                        <div class="product-short-desc">
+                                            <p style="text-align: justify;">{{product.short_description}}</p>
+                                        </div>
+
+                                        <hr class="product-divider">
+
+                                        <div class="product-form product-variation-form product-color-swatch" style="position:relative; margin-left:20px; margin-top:30px;">
+                                            <label>Material:</label>
+                                      
+                                            <div class="select-box" style="width:65%;">
+                                                <select  class="form-control form-control-md" id="material_type" style="border-radius:7px; position:relative; margin-left:20px;">
+                                                    {% for color in colors %} 
+                                                        {% if forloop.counter == 1 %}
+                                                            <option  value="{{color.color__id}}" selected="selected" material-name="{{color.color__title}}">{{color.color__title}}</option>
+                                                        {% else %}
+                                                        
+                                                            <option  value="{{color.color__id}}" material-name="{{color.color__title}}">{{color.color__title}}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {% comment %} <div class="d-flex align-items-center product-variations">
+                                
+                                         
+                                                {% for color in colors %}                                                                                                                                                     
+                                                <button  class="color-design choose-color" data-color="{{color.color__id}}" >{{color.color__title}}</button>
+                                                <input class="color-name" id="color-name-{{color.color__id}}" name="{{color.color__title}}">
+                                                {% endfor %}
+                                            </div> {% endcomment %}
+                                            
+                                        </div>
+                                        <div class="product-form product-variation-form product-size-swatch" style=" margin-left:20px; margin-top:40px;">
+                                            <label class="mb-1">Dimension:</label>
+                                            <div class="select-box" style="width:59%;">
+                                                <select  class="form-control form-control-md"  style="border-radius:7px; position:relative; margin-left:20px;" id="dimension">
+                                                    {% for size in sizes %}
+                                                        <option  value="{{size.color.id}}" class="material{{size.color.id}} material-dimension" data-price="{{size.selling_price}}" data-title="{{size.size.title}}" style="display:none;">{{size.size.title}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {% comment %} <a href="#" class="product-variation-clean">Clean All</a> {% endcomment %}
+                                            
+                                        </div>
+                                        
+                                        
+
+                                        {% comment %} <div class="">
+                                         
+                                            <span class="product-price">
+
+                                            </span>
+                                        </div> {% endcomment %}
+
+                                        <div class=" " style="margin-top:55px;">
+                                            <div class="product-form container">
+                                                <div class="product-qty-form">
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="number" value="1" id="product-quantity">
+                                                        <input class="form-control" type="hidden" value="{{product.id}}" id="product-id">
+                                                       
+                                                        
+                                                        
+
+                                                        <button class="quantity-increase w-icon-plus"></button>
+                                                        <button class="quantity-dicrease w-icon-minus"></button>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary btn-cart" id="addToCartBtn">
+
+                                                    <i class="w-icon-cart"></i>
+                                                    <span>Add to Cart</span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {% comment %} <div class="social-links-wrapper">
+                                            <div class="social-links">
+                                                <div class="social-icons social-no-color border-thin">
+                                                    <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
+                                                    <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
+                                                    <a href="#"
+                                                        class="social-icon social-pinterest fab fa-pinterest-p"></a>
+                                                    <a href="#" class="social-icon social-whatsapp fab fa-whatsapp"></a>
+                                                    <a href="#"
+                                                        class="social-icon social-youtube fab fa-linkedin-in"></a>
+                                                </div>
+                                            </div>
+                                            <span class="divider d-xs-show"></span>
+                                            <div class="product-link-wrapper d-flex">
+                                                <a href="#"
+                                                    class="btn-product-icon btn-wishlist w-icon-heart"><span></span></a>
+                                                <a href="#"
+                                                    class="btn-product-icon btn-compare btn-icon-left w-icon-compare"><span></span></a>
+                                            </div>
+                                        </div> {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab tab-nav-boxed tab-nav-underline product-tabs">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a href="#product-tab-description" class="nav-link active">Description</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#product-tab-specification" class="nav-link">Specification</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#product-tab-vendor" class="nav-link">Brand Info</a>
+                                    </li>
+                                    {% comment %} <li class="nav-item">
+                                        <a href="#product-tab-reviews" class="nav-link">Customer Reviews (3)</a>
+                                    </li> {% endcomment %}
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="product-tab-description">
+                                        <div class="row mb-4">
+                                            <div class="col-md-12 mb-5" style="text-align: justify;">
+                                                <h4 class="title tab-pane-title font-weight-bold mb-2">Detail</h4>
+                                                <p class="mb-4" style="text-align: justify;">{{product.description |safe }}</p>
+                                                {% comment %} <ul class="list-type-check">
+                                                    <li>Nunc nec porttitor turpis. In eu risus enim. In vitae mollis
+                                                        elit.
+                                                    </li>
+                                                    <li>Vivamus finibus vel mauris ut vehicula.</li>
+                                                    <li>Nullam a magna porttitor, dictum risus nec, faucibus sapien.
+                                                    </li>
+                                                </ul> {% endcomment %}
+                                            </div>
+                                            {% comment %} <div class="col-md-6 mb-5">
+                                                <div class="banner banner-video product-video br-xs">
+                                                    <figure class="banner-media">
+                                                        <a href="#">
+                                                            <img src="assets/images/products/video-banner-610x300.jpg"
+                                                                alt="banner" width="610" height="300"
+                                                                style="background-color: #bebebe;">
+                                                        </a>
+                                                        <a class="btn-play-video btn-iframe"
+                                                            href="assets/video/memory-of-a-woman.mp4"></a>
+                                                    </figure>
+                                                </div>
+                                            </div> {% endcomment %}
+                                        </div>
+                                        {% comment %} <div class="row cols-md-3">
+                                            <div class="mb-3">
+                                                <h5 class="sub-title font-weight-bold"><span class="mr-3">1.</span>Free
+                                                    Shipping &amp; Return</h5>
+                                                <p class="detail pl-5">We offer free shipping for products on orders
+                                                    above 50$ and offer free delivery for all orders in US.</p>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h5 class="sub-title font-weight-bold"><span>2.</span>Free and Easy
+                                                    Returns</h5>
+                                                <p class="detail pl-5">We guarantee our products and you could get back
+                                                    all of your money anytime you want in 30 days.</p>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h5 class="sub-title font-weight-bold"><span>3.</span>Special Financing
+                                                </h5>
+                                                <p class="detail pl-5">Get 20%-50% off items over 50$ for a month or
+                                                    over 250$ for a year with our special credit card.</p>
+                                            </div>
+                                        </div> {% endcomment %}
+                                    </div>
+                                    <div class="tab-pane" id="product-tab-specification">
+                                        <ul class="list-none">
+                                            <li>
+                                                <label>SKU</label>
+                                                <p>{{product.code}}</p>
+                                            </li>
+                                            <li>
+                                                <label>Material</label>
+                                                <p class="spec-color" id="spec-material"></p>
+                                            </li>
+                                            <li>
+                                                <label>Dimension</label>
+                                                <p class="spec-size" id="spec-dimension"></p>
+                                            </li>
+                                            {% comment %} <li>
+                                                <label>Guarantee Time</label>
+                                                <p>3 Months</p>
+                                            </li> {% endcomment %}
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane" id="product-tab-vendor">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6 mb-4">
+                                                <figure class="vendor-banner br-sm">
+                                                    <img src="{{product.brand.image.url}}"
+                                                        alt="Vendor Banner" width="610" height="295"
+                                                        style="background-color: #353B55;" />
+                                                </figure>
+                                            </div>
+                                            <div class="col-md-6 pl-2 pl-md-6 mb-4">
+                                                <div class="vendor-user">
+                                                    <figure class="vendor-logo mr-4">
+                                                        <a href="{% url 'brand_store' vendor.slug %}">
+                                                            <img src="{{product.brand.logo.url}}"
+                                                                alt="Vendor Logo" width="80" height="80" />
+                                                        </a>
+                                                    </figure>
+                                                    <div>
+                                                        {% comment %} <div class="vendor-name"><a href="#">Jone Doe</a></div>
+                                                        <div class="ratings-container">
+                                                            <div class="ratings-full">
+                                                                <span class="ratings" style="width: 90%;"></span>
+                                                                <span class="tooltiptext tooltip-top"></span>
+                                                            </div>
+                                                            <a href="#" class="rating-reviews">(32 Reviews)</a>
+                                                        </div> {% endcomment %}
+                                                    </div>
+                                                </div>
+                                                <ul class="vendor-info list-style-none">
+                                                    <li class="store-name">
+                                                        <label>Store Name:</label>
+                                                        <span class="detail">{{product.brand.title}}</span>
+                                                    </li>
+                                                    <li class="store-address">
+                                                        <label>Address:</label>
+                                                        <span class="detail">{{product.brand.location}}</span>
+                                                    </li>
+                                                    <li class="store-phone">
+                                                        <label>Phone:</label>
+                                                        <a href="#tel:">{{product.brand.phone}}</a>
+                                                    </li>
+                                                </ul>
+                                                <a href="{% url 'brand_store' product.brand.slug %}"
+                                                    class="btn btn-dark btn-link btn-underline btn-icon-right" id="vendor-store-visit">Visit
+                                                    Store<i class="w-icon-long-arrow-right"></i></a>
+                                            </div>
+                                        </div>
+                                        <p class="mb-5" style="text-align: justify;"> {{ product.brand.description|safe }} </p>
+                                        {% comment %} <p class="mb-2"><strong class="text-dark">A</strong> arcu cursus vitae congue
+                                            mauris. Sagittis id consectetur purus
+                                            ut. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla.
+                                            Diam in
+                                            arcu cursus euismod quis. Eget sit amet tellus cras adipiscing enim eu. In
+                                            fermentum et sollicitudin ac orci phasellus. A condimentum vitae sapien
+                                            pellentesque
+                                            habitant morbi tristique senectus et. In dictum non consectetur a erat. Nunc
+                                            scelerisque viverra mauris in aliquam sem fringilla.</p> {% endcomment %}
+                                    </div>
+
+                                </div>
+                            </div>
+                            <section class="vendor-product-section">
+                                <div class="title-link-wrapper mb-4">
+                                    <h4 class="title text-left">More Products From This Brand</h4>
+                                    <a href="{% url 'brand_store' vendor.slug %}" class="btn btn-dark btn-link btn-slide-right btn-icon-right">More
+                                        Products<i class="w-icon-long-arrow-right"></i></a>
+                                </div>
+                                <div class="swiper-container swiper-theme" data-swiper-options="{
+                                    'spaceBetween': 20,
+                                    'slidesPerView': 2,
+                                    'breakpoints': {
+                                        '576': {
+                                            'slidesPerView': 3
+                                        },
+                                        '768': {
+                                            'slidesPerView': 4
+                                        },
+                                        '992': {
+                                            'slidesPerView': 3
+                                        }
+                                    }
+                                }">
+                                    
+                                    <div class="swiper-wrapper row cols-lg-3 cols-md-4 cols-sm-3 cols-2">
+                                        {% for product in vendor.product_vendor.all %}
+                                            {% if forloop.counter <= 3 %}
+                                            <div class="swiper-slide product">
+                                                <figure class="product-media">
+                                                    <a href="{% url 'product_details' product.slug %}">
+                                                        <img src="{{product.image.url}}" alt="{{product.title}}"
+                                                            width="300" height="338" />
+                                                        {% comment %} <img src="assets/images/products/default/1-2.jpg" alt="Product"
+                                                            width="300" height="338" /> {% endcomment %}
+                                                    </a>
+                                                    {% comment %} <div class="product-action-vertical">
+                                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart"
+                                                            title="Add to cart"></a>
+                                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                                            title="Add to wishlist"></a>
+                                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
+                                                            title="Add to Compare"></a>
+                                                    </div> {% endcomment %}
+                                                    {% comment %} <div class="product-action">
+                                                        <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
+                                                            View</a>
+                                                    </div> {% endcomment %}
+                                                </figure>
+                                                <div class="product-details">
+                                                    <div class="product-cat"><a href="{% url 'category_filter' product.sub_sub_category.sub_category.category.slug %}">{{product.sub_sub_category.sub_category.category.title}}</a>
+                                                    </div>
+                                                    <h4 class="product-name"><a href="{% url 'product_details' product.slug %}" >{{product.title}}</a>
+                                                    </h4>
+                                                    {% comment %} <div class="ratings-container">
+                                                        <div class="ratings-full">
+                                                            <span class="ratings" style="width: 100%;"></span>
+                                                            <span class="tooltiptext tooltip-top"></span>
+                                                        </div>
+                                                        <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
+                                                    </div> {% endcomment %}
+                                                    <div class="product-pa-wrapper">
+                                                        <div style="font-size:1.3rem;">BDT {{product.price|floatformat:0|cut:'.'}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                        
+                                    </div>
+                                </div>
+                            </section>
+                       
+                        </div>
+                        <!-- End of Main Content -->
+                        <aside class="sidebar product-sidebar sidebar-fixed right-sidebar sticky-sidebar-wrapper">
+                            <div class="sidebar-overlay"></div>
+                            <a class="sidebar-close" href="#"><i class="close-icon"></i></a>
+                            <a href="#" class="sidebar-toggle d-flex d-lg-none"><i class="fas fa-chevron-left"></i></a>
+                            <div class="sidebar-content scrollable">
+                                <div class="sticky-sidebar">
+                                    <div class="widget widget-icon-box mb-6">
+                                        <div class="icon-box icon-box-side">
+                                            <span class="icon-box-icon text-dark">
+                                                <i class="w-icon-truck"></i>
+                                            </span>
+                                            <div class="icon-box-content">
+                                                <h4 class="icon-box-title">Free Shipping & Returns</h4>
+                                                <p>For all orders over $99</p>
+                                            </div>
+                                        </div>
+                                        <div class="icon-box icon-box-side">
+                                            <span class="icon-box-icon text-dark">
+                                                <i class="w-icon-bag"></i>
+                                            </span>
+                                            <div class="icon-box-content">
+                                                <h4 class="icon-box-title">Secure Payment</h4>
+                                                <p>We ensure secure payment</p>
+                                            </div>
+                                        </div>
+                                        <div class="icon-box icon-box-side">
+                                            <span class="icon-box-icon text-dark">
+                                                <i class="w-icon-money"></i>
+                                            </span>
+                                            <div class="icon-box-content">
+                                                <h4 class="icon-box-title">Money Back Guarantee</h4>
+                                                <p>Any back within 30 days</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End of Widget Icon Box -->
+
+                                    <div class="widget widget-banner mb-9">
+                                        <div class="banner banner-fixed br-sm">
+                                            <figure>
+                                                <img src="{{site_data.image.url}}" alt="Banner" width="266"
+                                                    height="220" style="background-color: #1D2D44;" />
+                                            </figure>
+                                  
+                                        </div>
+                                    </div>
+                                    <!-- End of Widget Banner -->
+
+                                    <div class="widget">
+                                        <div class="title-link-wrapper mb-2">
+                                            <h4 class="title title-link font-weight-bold">More Products</h4>
+                                        </div>
+                                    
+                                        <div class="swiper nav-top">
+                                            <div class="swiper-container swiper-theme nav-top" data-swiper-options = "{
+                                                'slidesPerView': 1,
+                                                'spaceBetween': 20,
+                                                'navigation': {
+                                                    'prevEl': '.swiper-button-prev',
+                                                    'nextEl': '.swiper-button-next'
+                                                }
+                                            }">
+                         
+                                                <div class="swiper-wrapper">
+                                                    <div class="swiper-slide">
+                                                        {% for product in related_products %}
+                                                           {% if forloop.counter <= 3 %}
+                                                                <div class="product product-widget">
+                                                                    <figure class="product-media">
+                                                                        <a href="{% url 'product_details' product.slug %}">
+                                                                            <img src="{{product.image.url}}" alt="{{product.title}}"
+                                                                                width="100" height="113" />
+                                                                        </a>
+                                                                    </figure>
+                                                                    <div class="product-details">
+                                                                        <h4 class="product-name">
+                                                                            <a href="{% url 'product_details' product.slug %}">{{product.title}}</a>
+                                                                        </h4>
+                                                                        {% comment %} <div class="ratings-container">
+                                                                            <div class="ratings-full">
+                                                                                <span class="ratings" style="width: 100%;"></span>
+                                                                                <span class="tooltiptext tooltip-top"></span>
+                                                                            </div>
+                                                                        </div> {% endcomment %}
+                                                                        <div style="font-size:1.3rem;">BDT {{product.price|floatformat:0|cut:'.'}}</div>
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                            
+                                                    </div>
+                                                    <div class=" swiper-slide">
+                                                        {% for product in related_products %}
+                                                            {% if forloop.counter >= 4 and forloop.counter <= 6 %}
+                                                               
+                                                                    <div class="product product-widget">
+                                                                        <figure class="product-media">
+                                                                            <a href="{% url 'product_details' product.slug %}">
+                                                                                <img src="{{product.image.url}}" alt="{{product.title}}"
+                                                                                    width="100" height="113" />
+                                                                            </a>
+                                                                        </figure>
+                                                                        <div class="product-details">
+                                                                            <h4 class="product-name">
+                                                                                <a href="{% url 'product_details' product.slug %}">{{product.title}}</a>
+                                                                            </h4>
+                                                                            {% comment %} <div class="ratings-container">
+                                                                                <div class="ratings-full">
+                                                                                    <span class="ratings" style="width: 100%;"></span>
+                                                                                    <span class="tooltiptext tooltip-top"></span>
+                                                                                </div>
+                                                                            </div> {% endcomment %}
+                                                                            <div class="style="font-size:1.3rem;"">BDT {{product.price}}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        {% comment %} <div class="product product-widget">
+                                                            <figure class="product-media">
+                                                                <a href="#">
+                                                                    <img src="assets/images/shop/17.jpg" alt="Product"
+                                                                        width="100" height="113" />
+                                                                </a>
+                                                            </figure>
+                                                            <div class="product-details">
+                                                                <h4 class="product-name">
+                                                                    <a href="#">Modern Cooker</a>
+                                                                </h4>
+                                                                <div class="ratings-container">
+                                                                    <div class="ratings-full">
+                                                                        <span class="ratings" style="width: 80%;"></span>
+                                                                        <span class="tooltiptext tooltip-top"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-price">$324.00</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product product-widget">
+                                                            <figure class="product-media">
+                                                                <a href="#">
+                                                                    <img src="assets/images/shop/18.jpg" alt="Product"
+                                                                        width="100" height="113" />
+                                                                </a>
+                                                            </figure>
+                                                            <div class="product-details">
+                                                                <h4 class="product-name">
+                                                                    <a href="#">CT Machine</a>
+                                                                </h4>
+                                                                <div class="ratings-container">
+                                                                    <div class="ratings-full">
+                                                                        <span class="ratings" style="width: 100%;"></span>
+                                                                        <span class="tooltiptext tooltip-top"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-price">$236.00</div>
+                                                            </div>
+                                                        </div> {% endcomment %}
+                                                    </div>
+                                                </div>
+                                                <button class="swiper-button-next"></button>
+                                                <button class="swiper-button-prev"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                        <!-- End of Sidebar -->
+                    </div>
+                </div>
+            </div>
+            <!-- End of Page Content -->
+        </main>
+        <!-- End of Main -->
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+            <!-- Background of PhotoSwipe. It's a separate element as animating opacity is faster than rgba(). -->
+            <div class="pswp__bg"></div>
+    
+            <!-- Slides wrapper with overflow:hidden. -->
+            <div class="pswp__scroll-wrap">
+    
+                <!-- Container that holds slides.
+                PhotoSwipe keeps only 3 of them in the DOM to save memory.
+                Don't modify these 3 pswp__item elements, data is added later on. -->
+                <div class="pswp__container">
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                </div>
+    
+                <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                <div class="pswp__ui pswp__ui--hidden">
+    
+                    <div class="pswp__top-bar">
+    
+                        <!--  Controls are self-explanatory. Order can be changed. -->
+    
+                        <div class="pswp__counter"></div>
+    
+                        <button class="pswp__button pswp__button--close" aria-label="Close (Esc)"></button>
+                        <button class="pswp__button pswp__button--zoom" aria-label="Zoom in/out"></button>
+    
+                        <div class="pswp__preloader">
+                            <div class="loading-spin"></div>
+                        </div>
+                    </div>
+    
+                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                        <div class="pswp__share-tooltip"></div>
+                    </div>
+    
+                    <button class="pswp__button--arrow--left" aria-label="Previous (arrow left)"></button>
+                    <button class="pswp__button--arrow--right" aria-label="Next (arrow right)"></button>
+    
+                    <div class="pswp__caption">
+                        <div class="pswp__caption__center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}

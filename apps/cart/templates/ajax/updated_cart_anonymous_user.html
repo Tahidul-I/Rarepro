@@ -1,0 +1,47 @@
+
+                              
+                                    {% for product_variant_id,item in cart_list.items %}
+                                    <tr class="text-center table-row-{{product_variant_id}}">
+                                        <td class="product-thumbnail">
+                                            <div class="p-relative">
+                                                <a href="{% url 'product_details' item.slug %}">
+                                                    <figure>
+                                                        <img src="{{item.image}}" alt="product"
+                                                            width="300" height="338">
+                                                    </figure>
+                                                </a>
+                                                <button type="button" class="btn btn-close delete-icon" id="{{product_variant_id}}"><i
+                                                        class="fas fa-times"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="product-name">
+                                            <a href="{% url 'product_details' item.slug %}">
+                                                {{item.title}}
+                                            </a>
+                                        </td>
+                                        <td ><span class="amount">{{item.color}}</span></td>
+                                        <td ><span class="amount">{{item.size}}</span></td>
+                                        <td ><span class="amount" id="item-price-value">BDT {{item.price|floatformat:0|cut:'.'}}</span></td>
+                                        <td class="product-quantity" >
+                                            <div class="input-group">
+                                                <input class="form-control cart-{{product_variant_id}} cart-quantity-for-update" type="number" value="{{item.quantity}}" data-quantity="{{product_variant_id}}">
+                                                    <button type="button" class="w-icon-plus updated-cart-value-increase" data-plus="{{product_variant_id}}"></button>
+                                                    <button type="button" class="w-icon-minus updated-cart-value-dicrease" data-minus="{{product_variant_id}}"></button>
+                                            </div>
+                                        </td>
+                                        <td class="product-subtotal">
+                                            <span class="amount">BDT {% widthratio item.price 1 item.quantity|floatformat:0|cut:'.' %}</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr class="hide-button">
+                                        <td colspan="7" style="text-align:center;font-size:25px;font-weight:700;">
+                                            <span>Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="ls-50 " id="updated-total-amount">BDT &nbsp;{{total_amount|floatformat:0|cut:'.'}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center" style="display:none;" id="cart_empty_message"> 
+                                        <td colspan="7" ><h1>There Is No Item In Your Cart</h1></td>
+
+                                    </tr>
+                                   
+                                    
