@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "env": {
+    "PYTHON_VERSION": "3.9",
+    "DJANGO_SETTINGS_MODULE": "meherun_beauty.settings"
+    },
+    "builds": [
+    {
+    "src": "meherun_beauty/wsgi.py",
+    "use": "@vercel/python"
+    }
+    ],
+    "routes": [
+    {
+    "src": "/(.*)",
+    "dest": "meherun_beauty/wsgi.py"
+    }
+    ]
+}
